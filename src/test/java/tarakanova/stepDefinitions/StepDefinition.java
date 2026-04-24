@@ -48,5 +48,7 @@ public class StepDefinition extends BaseTest {
     public void message_is_displayed_on_ConfirmationPage(String message) throws InterruptedException {
         String confirmationMessage = confirmationPage.getConfirmationMessage();
         Assert.assertTrue(confirmationMessage.equalsIgnoreCase(message));
+        driver.close();
     }
+
 }
