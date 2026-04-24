@@ -43,18 +43,25 @@ public class BaseTest  {
         if (browserName.contains("chrome")) {
             ChromeOptions chromeOptions = new ChromeOptions();
             WebDriverManager.chromedriver().setup();
-            if(browserName.contains("headless")) {
-                chromeOptions.addArguments("headless");
+
+            if (browserName.contains("headless")) {
+                chromeOptions.addArguments("--headless=new");
+                chromeOptions.addArguments("--window-size=1440,900");
             }
+
             driver = new ChromeDriver(chromeOptions);
-            driver.manage().window().setSize(new Dimension(1440, 900));
+
+            if (!browserName.contains("headless")) {
+                driver.manage().window().maximize();
+            }
 
         } else if (browserName.equalsIgnoreCase("firefox")) {
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
+            driver.manage().window().maximize();
         }
+
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.manage().window().maximize();
         return driver;
     }
 
